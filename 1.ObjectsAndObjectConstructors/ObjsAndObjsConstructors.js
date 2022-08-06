@@ -1,16 +1,15 @@
-
+// Sum object properties
 let salaries = {
-    Jhon: 100,
+    John: 100,
     Ann: 160,
     Pete: 130
-};
+}
 
 let sum = 0;
 for (let key in salaries) {
     sum += salaries[key]
 }
-
-console.log(sum);
+sum
 
 
 // Multiply numeric property values by 2
@@ -23,10 +22,12 @@ let menu = {
 
 const multiplyNumeric = (obj) => {
     for(let key in obj){
-        if(obj[key] > 0 ){
-            obj[key] *= 2;
+        if(typeof obj[key] == "number"){
+            obj[key] *= 2
         }
     }
 }
+
 multiplyNumeric(menu);
+
 menu
