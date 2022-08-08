@@ -272,3 +272,88 @@ console.log(animal.isSleeping);
 
 
 
+let animals = {
+    jumps: null,
+    eat() {
+        this.full = true;
+    }
+};
+let rabbits = {
+    __proto__: animal,
+    jumps: true
+};
+
+console.log("1: ", rabbits.jumps);
+console.log("2: ", delete rabbits.jumps);
+console.log("3: ", rabbits.jumps);
+console.log("4: ", delete animals.jumps);
+console.log("5: ", rabbits.jumps);
+// console.log("rabit.eat", rabbits.eat());
+
+
+
+
+
+
+// let head = {
+//     glasses: 1
+// };
+
+// let table = {
+//     pen: 3,
+//     __proto__ : head
+// };
+
+// let bed = {
+//     sheet: 1,
+//     pillow: 2,
+//     __proto__ : table
+// };
+
+// let pockets = {
+//     money: 2000,
+//     __proto__ : bed
+// };
+
+// console.log("pockets.pen : ", pockets.pen);
+// console.log("bed.glasses : ", bed.glasses);
+// console.log("table.money : ", table.money);
+// console.log("pockets.glasses : ", pockets.glasses);
+
+
+
+
+let hamster = {
+    stomach: [],
+
+    eat(food) {
+        this.stomach = [food];
+    }
+};
+
+let speedy = {
+    __proto__: hamster
+};
+
+let lazy = {
+    __proto__: hamster
+};
+
+
+// This one found the food
+speedy.eat("apple");
+console.log( speedy.stomach ); // apple
+
+// This one also has it, why? fix please.
+console.log( lazy.stomach ); // apple
+
+
+
+
+// This
+
+function hello(name) {
+    return 'Hello ' + name + '!';
+  }
+  // Function invocation
+  const message = hello('World');
