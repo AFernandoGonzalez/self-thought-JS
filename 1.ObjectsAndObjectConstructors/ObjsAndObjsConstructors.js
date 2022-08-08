@@ -241,3 +241,34 @@ EighthGrader.prototype = Object.create(Student.prototype)
 const carl = new EighthGrader('carl')
 carl.sayName()
 console.log(carl.grade);
+
+
+
+
+// animal has methods
+let animal = {
+    walk() {
+        if (!this.isSleeping) {
+            alert(`I walk`);
+        }
+    },
+    sleep() {
+        this.isSleeping = true;
+    }
+};
+
+let rabbit = {
+    name: "White Rabbit",
+    __proto__: animal
+};
+
+// modifies rabbit.isSleeping
+rabbit.sleep();
+// animal.sleep();
+
+console.log(rabbit.isSleeping); // true
+console.log(animal.isSleeping);
+
+
+
+
