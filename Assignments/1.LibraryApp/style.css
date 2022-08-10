@@ -1,0 +1,20 @@
+
+.library-section{
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.book-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.book-container{
+    display: flex;
+}
+
+.card {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 1rem;
+    padding: 1rem;
+}
