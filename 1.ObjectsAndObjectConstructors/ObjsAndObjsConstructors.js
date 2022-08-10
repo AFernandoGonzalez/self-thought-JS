@@ -342,18 +342,110 @@ let lazy = {
 
 // This one found the food
 speedy.eat("apple");
-console.log( speedy.stomach ); // apple
+console.log(speedy.stomach); // apple
 
 // This one also has it, why? fix please.
-console.log( lazy.stomach ); // apple
+console.log(lazy.stomach); // apple
 
 
 
 
-// This
+// THIS.
 
+// simple example of function invocation
 function hello(name) {
     return 'Hello ' + name + '!';
-  }
-  // Function invocation
-  const message = hello('World');
+}
+// Function invocation
+const message1 = hello('World');
+console.log(message1);
+
+
+// IIFE (immediately-invoked function expression)
+const message2 = (function (name) {
+    return 'Hello ' + name + '!';
+})('World');
+console.log(message2);
+
+
+const myFunc = () => {
+    console.log(this);
+}
+myFunc()
+
+
+function sum(a, b) {
+    console.log("this === window: ", this === window); // => true
+    this.myNumber = 20; // add 'myNumber' property to global object
+    console.log(this.myNumber = 20);
+    return a + b;
+}
+console.log(sum(15, 16));    // => 31
+console.log("window.myNumber: ", window.myNumber);
+
+console.log(this === window); // => true
+this.myString = 'Hello World!';
+console.log(window.myString);
+
+
+
+const myObject = {
+    // helloMethod is a method
+    helloMethod: function () {
+        return 'Hello There!';
+    }
+};
+const message = myObject.helloMethod();
+console.log("Message: ", message);
+
+
+
+const calc = {
+    num : 0,
+    increment(){
+        console.log("this === calc: ",this === calc);
+        this.num += 1;
+        return this.num;
+    }
+}
+
+console.log(calc.increment());
+console.log(calc.increment());
+
+
+
+
+const myDog = Object.create({
+    sayName(){
+        console.log(this === myDog);
+        return this.name;
+    }
+})
+
+myDog.name = 'Milo';
+console.log(myDog.sayName());
+
+
+
+
+const Car = function(color){
+    this.color = color
+};
+
+Car.prototype = {
+    getColor(){
+        return this.color;
+    }
+};
+
+const ToyCar = function(){
+
+};
+
+ToyCar.prototype = Object.create(Car.prototype);
+
+const legoCar = new ToyCar();
+
+console.dir(legoCar instanceof ToyCar);
+console.dir(legoCar instanceof Car);
+console.dir(legoCar instanceof Object);
