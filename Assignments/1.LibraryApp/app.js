@@ -1,7 +1,7 @@
 // user interface
 const librarySection = document.querySelector('.book-container')
 const addBookForm = document.querySelector('#addBookForm')
-
+const errorMsg = document.querySelector('#errorMsg')
 
 class Book {
     // constructor
@@ -17,9 +17,13 @@ class Library {
     constructor() {
         this.books = []
     }
-
     addBook(newBook) {
-        this.books.push(newBook)
+        if (!this.isInLibrary(newBook)) {
+            this.books.push(newBook)
+        }
+    }
+    isInLibrary(newBook) {
+        return this.books.some((book) => book.title === newBook.title)
     }
 }
 
@@ -28,7 +32,8 @@ const library = new Library()
 const updateBooksGrid = () => {
     resetBooksGrid()
     for (let book of library.books) {
-        createBookCard(book)
+        createBook(book)
+        // console.log(createBook("createBook: ", book));
     }
 }
 
@@ -49,38 +54,49 @@ const createBook = (book) => {
     bookPages.classList.add('book-pages');
     bookRead.classList.add('book-read');
 
-    // const bookTitleText = document.createTextNode(book.title);
-    // const bookAuthorText = document.createTextNode(book.author);
-    // const bookPagesText = document.createTextNode(book.num_pages);
-    // const bookReadText = document.createTextNode(book.read);
+    bookTitle.textContent = book.title
+    bookAuthor.textContent = book.author
+    bookPages.textContent = `${book.num_pages} pages`
 
-    // bookTitle.appendChild(bookTitleText);
-    // bookAuthor.appendChild(bookAuthorText);
-    // bookPages.appendChild(bookPagesText);
-    // bookRead.appendChild(bookReadText);
-
-    librarySection.append(card)
+    if (book.isRead) {
+        bookRead.textContent = 'Read'
+    } else {
+        bookRead.textContent = 'Not Read'
+    }
 
     card.appendChild(bookTitle);
     card.appendChild(bookAuthor);
     card.appendChild(bookPages);
     card.appendChild(bookRead);
+    librarySection.append(card)
 };
 
-
-
 function getInputValues() {
-    const author = document.querySelector('#author')
-    console.log("Author: ", author.addEventListener('change', (e)=>{
-        console.log(e.target.value)
-    }));
+    const author = document.querySelector('#author').value
     const num_pages = document.querySelector('#pages').value
     const title = document.querySelector('#title').value
-    const read = document.querySelector('#read').checked
-    return new Book(author, num_pages, title, read)
+    const isRead = document.querySelector('#read').checked
+    console.log('author: ', author);
+    console.log('num_pages: ', num_pages);
+    console.log('title: ', title);
+    console.log('read: ', isRead);
+    return new Book(author, num_pages, title, isRead)
 };
 
 const addBook = (e) => {
     e.preventDefault()
     const newBook = getInputValues()
+
+    if (library.isInLibrary(newBook)) {
+        errorMsg.textContent = 'This book already exists in your library'
+        errorMsg.classList.add('active')
+        return
+    }
+
+    library.addBook(newBook)
+    updateBooksGrid()
+
+    console.log("library.books: ", library.books);
 }
+
+addBookForm.onsubmit = addBook
